@@ -1,2 +1,2 @@
-# Suggestions Section of TimCamps
+# Repo for Suggestions Section
 Camping site suggestions section
