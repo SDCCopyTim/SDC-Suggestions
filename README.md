@@ -1,2 +1,2 @@
-# Repo for Suggestions Section
+# Repo for Suggestions Module
 Camping site suggestions section
