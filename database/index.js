@@ -1,31 +1,35 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+
+
+
+// BELOW IS A MONGOOSE VERSION OF THE DATABASE ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// const mongoose = require('mongoose');
+// mongoose.connect('mongodb://localhost/fetcher');
 
 // formated to filter out desired properties
-const imageSchema = mongoose.Schema({
-  id: Number,
-  img_url: String
-})
+// const imageSchema = mongoose.Schema({
+//   id: Number,
+//   img_url: String
+// })
 
-const campSchema = mongoose.Schema({
-  id: Number,
-  name: String,
-  property: String,
-  state: String,
-  rating: Number,
-  responses: Number,
-  image_url: String
-});
+// const campSchema = mongoose.Schema({
+//   id: Number,
+//   name: String,
+//   property: String,
+//   state: String,
+//   rating: Number,
+//   responses: Number,
+//   image_url: String
+// });
 
-const listSchema = mongoose.Schema({
-  id: Number,
-  name: String,
-  camps: [campSchema]
-})
+// const listSchema = mongoose.Schema({
+//   id: Number,
+//   name: String,
+//   camps: [campSchema]
+// })
 
 // connection: the collections are "images, camps, lists"
-const Image = mongoose.model('Image', imageSchema);
-const Camp = mongoose.model('Camp', campSchema);
-const List = mongoose.model('List', listSchema);
+// const Image = mongoose.model('Image', imageSchema);
+// const Camp = mongoose.model('Camp', campSchema);
+// const List = mongoose.model('List', listSchema);
 
-module.exports = { Image, Camp, List };
+// module.exports = { Image, Camp, List };
