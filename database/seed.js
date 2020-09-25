@@ -10,7 +10,8 @@ const campSuffixName = ['Ranch', 'Camp', 'Camping', 'Camping Site', 'Lake', 'Far
 const campPropertySuffixName = ['Land', 'Summit', 'Ranch', 'Camp', 'Forest', 'Ridge', 'Resort', 'Sanctuary', 'Farm', 'Campground', 'Creek'];
 const campState = ['California', 'Florida', 'Maine', 'Texas', 'Washington'];
 
-// RANDOM CAMP NAME GENERATOR ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// RANDOM GENERATORS FOR CAMP NAME, RESPONSES, RATINGS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// RANDOM CAMP NAME GENERATOR
 const randomCampName = () => {
   // camp first name
   var campNameArray = [];
@@ -32,7 +33,20 @@ const randomCampName = () => {
   return campNameArray.join(' ');
 };
 
-// RANDOM CAMP RATING ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// RANDOM CAMP RESPONSES NUMBER GENERATOR
+// This function is used to deliver a realistic distribution of numbers of responses based on personal observation on Hipcamp trends.
+const randomCampResponses = () => {
+  var r = Math.random();
+  if (r < 0.65) {
+    return Math.floor(Math.random() * 50) + 1; // 65% of the time: 1 - 50 responses
+  } else if (r < 0.9) {
+    return Math.floor(Math.random() * 950) + 51; // 35% of the time: 51 - 1000 responses
+  } else {
+    return Math.floor(Math.random() * 1000) + 1001; // 10% of the time: 1001 - 2000 responses
+  }
+};
+
+// RANDOM CAMP RATING GENERATOR
 // This function is used to deliver a realistic rating trend on Hipcamp depending on the amount of responses.
 // The greater the volume of responses is, the lower the chances are of having a full 100% rating.
 const randomCampRating = (responses) => {
@@ -57,42 +71,47 @@ const randomCampRating = (responses) => {
     }
   }
   return Math.floor(Math.random() * 10) + rateLevel; // (0 - 0.9) * 10 + (80 or 90) --> 80-89 or 90-99
-}
+};
 
-// Create 1 random Camp (IN THE SAME SCHEMA FORMAT AS CAMP SCHEMA in index.js)
-// Maintaing Camp's schema format from index.js will save extra work
-const createCamp = (maxResponses, numImages) => {
+
+// CREATE CAMP /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Create 1 Random Camp
+// FOR MONGOOSE: IN THE SAME SCHEMA FORMAT AS CAMP SCHEMA in index.js
+// FOR MONGOOSE: Maintaing Camp's schema format from index.js will save extra work
+const createCamp = (numImages) => {
   // note that camp.id is not included; remember id will be auto_generated when you save these random-generated Camps into camps collection (mongoDB or mySQL)
   let camp = {};
+
   camp.name = randomCampName();
   camp.property = faker.address.streetName() + ' ' + campPropertySuffixName[Math.floor(Math.random() * campPropertySuffixName.length)]; // '(streetName) Ranch'
   camp.state = campState[Math.floor(Math.random() * campState.length)];
-  camp.responses = Math.floor(Math.random() * (maxResponses + 1)); // responses: 0 - maxResponses
-  camp.rating = Math.floor(Math.random() * (100 + 1));
+  camp.responses = randomCampResponses(); // responses: 0 - 2000
+  camp.rating = randomCampRating(camp.responses);
   camp.image_url = `https://timcamp.s3-us-west-1.amazonaws.com/camp${Math.floor(Math.random() * numImages) + 1}.png`; // images camp 1 - numImages
 
-  console.log(camp);
   return camp;
 };
-//createCamp(2000, 346);
 
-const createCamps = () => {
+// Create Multiple Camps
+const createCamps = (numCamps = 100, numImages = 300) => {
   let campsArr = [];
-  for (let i = 0; i < 10; i++) {
-    campsArr.push(createCamp(2000, 346));
+  for (let i = 0; i < numCamps; i++) {
+    campsArr.push(createCamp(numImages));
   }
   return campsArr;
 };
 
-const insertMockData = function () {
-  var seedData = createProducts(); // [{data1}, {}, ..., {}]
+// Insert Data
+const insertData = function () {
+  var campsData = createCamps(100, 346); // [{name: '', property: '', ..., image_url: ''}, {}, ..., {}]
 
   // make query string
-  let queryString = `INSERT INTO products (item, min_cost, curr_bid, ends_in, image) VALUES `;
+  let queryString = `INSERT INTO camps (name, property, state, responses, rating, image_url) VALUES `;
 
   // make an array of data values to insert into
-  var values = seedData.map((product, index) => {
-    return (`('${product.item}', ${product.min_cost}, ${product.curr_bid}, ${product.ends_in}, '${product.image}')`);
+  var values = campsData.map((camp, index) => {
+    return (`('${camp.name}', '${camp.property}', '${camp.state}', ${camp.responses}, ${camp.rating}, '${camp.image_url}')`);
   });
 
   // concat data values to query string
@@ -108,4 +127,4 @@ const insertMockData = function () {
   });
 };
 
-// insertMockData(); // invoke function
+ insertData(); // invoke function
