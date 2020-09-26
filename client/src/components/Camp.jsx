@@ -9,7 +9,7 @@ class Camp extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <span>Camp</span>
     );
   }

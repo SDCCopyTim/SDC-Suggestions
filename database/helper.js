@@ -10,20 +10,19 @@ const helper = {
     while (count > 0) {
       // generate random id number 1-100
       const randomId = faker.random.number({
-        'min': 1,
-        'max': 100
+        min: 1,
+        max: 100,
       });
       // if id is unique
       if (randomIds.indexOf(randomId) === -1) {
         // add to randomIds
         randomIds.push(randomId);
-        count--;
+        count -= 1;
       }
     }
 
     // convert to MySQL command
-    let queryString = `SELECT * FROM camps WHERE id IN (` + randomIds.join(', ') + ');';
-    console.log(queryString);
+    const queryString = `SELECT * FROM camps WHERE id IN (${randomIds.join(', ')});`;
 
     // invoke query
     db.query(queryString, (err, results) => {
@@ -33,8 +32,8 @@ const helper = {
         callback(null, results);
       }
     });
-  }
+  },
 
-}
+};
 
 module.exports = helper;
