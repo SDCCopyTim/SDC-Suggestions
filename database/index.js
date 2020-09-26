@@ -1,7 +1,7 @@
 // MySQL Database
 const mysql = require('mysql');
 
-let connection = mysql.createConnection({
+const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
@@ -12,8 +12,8 @@ connection.connect();
 
 module.exports = connection;
 
+// BELOW IS A MONGOOSE VERSION OF THE DATABASE
 
-// BELOW IS A MONGOOSE VERSION OF THE DATABASE ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // const mongoose = require('mongoose');
 // mongoose.connect('mongodb://localhost/fetcher');
 
