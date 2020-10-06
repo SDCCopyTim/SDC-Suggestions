@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import MainPhotos from './components/MainPhotos.jsx';
 import Map from './components/Map.jsx';
 import CampList from './components/CampList.jsx'; // "Campers also viewed" list
 import Footer from './components/Footer.jsx';
@@ -23,7 +22,7 @@ class App extends React.Component {
   }
 
   getCamp() {
-    axios.get('/api/camp')
+    axios.get('http://localhost:3005/api/camp')
       .then((results) => {
         this.setState({
           camp: results.data[0],
@@ -36,7 +35,7 @@ class App extends React.Component {
   }
 
   getAlsoViewed() {
-    axios.get('/api/camps')
+    axios.get('http://localhost:3005/api/camps')
       .then((results) => {
         this.setState({
           alsoViewed: results.data,
@@ -64,4 +63,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('suggestion'));
