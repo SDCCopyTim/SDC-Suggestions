@@ -314,6 +314,14 @@ dl {
   cursor: pointer;
 }
 
+.fa-thumbs-up:before {
+  content: "\f164";
+}
+
+.suggested-camp
+.recommend
+.fa-thumbs-up,
+
 .suggested-camp
 .recommend
 .percentage {

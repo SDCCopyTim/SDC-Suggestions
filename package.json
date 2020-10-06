@@ -4,7 +4,7 @@
   "description": "Repo for Suggestions section on a camp page",
   "main": "index.js",
   "scripts": {
-    "react-dev": "webpack -d --watch",
+    "build": "webpack",
     "start": "node server/index.js",
     "test": "",
     "schema": "mysql -u root < database/schema.sql",

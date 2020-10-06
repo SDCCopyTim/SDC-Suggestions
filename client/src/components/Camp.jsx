@@ -30,7 +30,7 @@ const Camp = (props) => {
       </small>
       <div className="recommend">
         <a>
-          <span className="thumbs-up" />
+          <span className="fa fa-thumbs-up" />
           <strong>
             <span className="percentage">{camp.rating}% </span>
             Recommend
