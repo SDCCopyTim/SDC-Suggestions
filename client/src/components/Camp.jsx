@@ -26,7 +26,7 @@ const Camp = (props) => {
         {renderTickMark()}
       </h4>
       <small className="suggested-camp_property">
-        {camp.property}
+        <a target="_blank" className="underlined">{camp.property}</a>
       </small>
       <div className="recommend">
         <a>
