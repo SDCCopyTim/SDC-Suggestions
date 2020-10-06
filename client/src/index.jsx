@@ -5,7 +5,6 @@ import MainPhotos from './components/MainPhotos.jsx';
 import Map from './components/Map.jsx';
 import CampList from './components/CampList.jsx'; // "Campers also viewed" list
 import Footer from './components/Footer.jsx';
-//hi
 
 // App contains CampList
 class App extends React.Component {
