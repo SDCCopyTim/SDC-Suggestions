@@ -1,11 +1,12 @@
 // MySQL Database
 const mysql = require('mysql');
+const PASSWORD = require('./password.js');
 
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '',
-  database: 'hipcampDB',
+  password: PASSWORD,
+  database: 'timcampDB',
 });
 
 connection.connect();
