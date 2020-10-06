@@ -142,14 +142,7 @@ const insertData = () => {
       console.log('Data seeding successful!');
     }
   });
+  db.end();
 };
 
 insertData(); // invoke function
-
-// let propertyName = faker.address.streetName();
-// while (propertyName.indexOf('Keefe') === -1) {
-//   propertyName = faker.address.streetName();
-// }
-// console.log(propertyName);
-// propertyName = propertyName.replace(/'/g, "''");
-// console.log(propertyName);
