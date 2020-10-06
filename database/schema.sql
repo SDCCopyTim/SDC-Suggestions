@@ -9,5 +9,6 @@ CREATE TABLE IF NOT EXISTS camps (
   state VARCHAR(255),
   responses INT,
   rating INT,
-  image_url VARCHAR(255)
+  image_url VARCHAR(255),
+  map_url TEXT
 );
