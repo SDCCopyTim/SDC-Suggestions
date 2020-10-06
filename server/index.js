@@ -10,8 +10,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
+app.get('/api/camp', (req, res) => {
+  helper.getOne((err, results) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).send(results);
+    }
+  });
+});
+
 app.get('/api/camps', (req, res) => {
-  helper.getNine((err, results) => {
+  helper.getTwelve((err, results) => {
     if (err) {
       res.status(400).send(err);
     } else {

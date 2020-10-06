@@ -9,6 +9,18 @@ const campAnimalName = ['Owl', 'Eagle', 'Wolf', 'Fox', 'Raven', 'Bear', 'Goat'];
 const campSuffixName = ['Ranch', 'Camp', 'Camping', 'Camping Site', 'Lake', 'Farm', 'Solitude', 'Getaway', 'Canyon', 'Woods'];
 const campPropertySuffixName = ['Land', 'Summit', 'Ranch', 'Camp', 'Forest', 'Ridge', 'Resort', 'Sanctuary', 'Farm', 'Campground', 'Creek'];
 const campState = ['California', 'Florida', 'Maine', 'Texas', 'Washington'];
+const campMap = {
+  California: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26437.75777640662!2d-116.54228946132449!3d34.076698423888004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80db253a8e4edd49%3A0xaa1bb38ea32f703c!2sThe%20Desert%20Rose%20Collective!5e0!3m2!1sen!2sus!4v1601597006195!5m2!1sen!2sus',
+
+  Florida: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55094.86466806726!2d-83.32368242044049!3d30.338754311563658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88eebfcd86d5598d%3A0x15778544bb77d6b3!2sHome%20Field%20Advantage%20Farmstead!5e0!3m2!1sen!2sus!4v1601597183825!5m2!1sen!2sus',
+
+  Maine: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d92691.04435888634!2d-70.55007934228574!3d43.44817099174576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb2af789390c709%3A0xfaac2f30f3b90287!2sSwamp%20Grass%20Ln%2C%20Arundel%2C%20ME%2004046!5e0!3m2!1sen!2sus!4v1601597899941!5m2!1sen!2sus',
+
+  Texas: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55316.95401155341!2d-97.42215203153161!3d29.94177138075298!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864361d21567bf83%3A0x6f8fcfd7dd30d88e!2sArdor%20Wood%20Farm!5e0!3m2!1sen!2sus!4v1601511502193!5m2!1sen!2sus',
+
+  Washington: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d87136.04105639421!2d-123.01201287000266!3d46.961664804994264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5491713b3b939523%3A0xfaeb325183951806!2sHealing%20Hearts%20Ranch!5e0!3m2!1sen!2sus!4v1601598088967!5m2!1sen!2sus',
+};
+const campImageNums = {};
 
 // RANDOM CAMP NAME GENERATOR
 const randomCampName = () => {
@@ -80,6 +92,12 @@ const randomCampRating = (responses) => {
 const createCamp = (numImages) => {
   // note that camp.id will be auto_generated in data table/collection
   const camp = {};
+  let campImageNum = Math.floor(Math.random() * numImages) + 1;
+  // reassign campImageNum random number until unique in campImageNums
+  while (campImageNums[campImageNum]) {
+    campImageNum = Math.floor(Math.random() * numImages) + 1;
+  }
+  campImageNums[campImageNum] = campImageNum;
 
   camp.name = randomCampName();
   camp.name = camp.name.replace(/'/g, "''"); // escape single quote with two single quotes for SQL syntax (O'Conner -> O''Conner)
@@ -88,7 +106,8 @@ const createCamp = (numImages) => {
   camp.state = campState[Math.floor(Math.random() * campState.length)];
   camp.responses = randomCampResponses(); // responses: 0 - 2000
   camp.rating = randomCampRating(camp.responses);
-  camp.image_url = `https://timcamp.s3-us-west-1.amazonaws.com/camp${Math.floor(Math.random() * numImages) + 1}.jpg`; // images camp 1 - numImages
+  camp.image_url = `https://timcamp.s3-us-west-1.amazonaws.com/camp${campImageNum}.jpg`; // images camp 1 - numImages
+  camp.map_url = campMap[camp.state];
 
   return camp;
 };
@@ -107,13 +126,14 @@ const insertData = () => {
   const campsData = createCamps(100, 346);
 
   // make query string
-  let queryString = 'INSERT INTO camps (name, property, state, responses, rating, image_url) VALUES ';
+  let queryString = 'INSERT INTO camps (name, property, state, responses, rating, image_url, map_url) VALUES ';
 
   // make an array of data values to insert into
-  const values = campsData.map((camp) => (`('${camp.name}', '${camp.property}', '${camp.state}', ${camp.responses}, ${camp.rating}, '${camp.image_url}')`));
+  const values = campsData.map((camp) => (`('${camp.name}', '${camp.property}', '${camp.state}', ${camp.responses}, ${camp.rating}, '${camp.image_url}', '${camp.map_url}')`));
 
   // concat data values to query string
   queryString += `${values.join(', ')};`;
+
   // insert data into database
   db.query(queryString, (err) => {
     if (err) {
