@@ -37,6 +37,6 @@ npm install
 ```
 
 ### Database
-1. Copy database/passwordExample.js file and create database/password.js file. Insert local MySQL database password.
+1. Rename ```database/passwordExample.js``` into ```database/password.js```, and insert your local MySQL database password.
 2. Set up a mysql database called 'timcamp', run $ ```npm run schema```
 3. Run the seed file from the command line while in the root directory, run $ ```npm run seed```
