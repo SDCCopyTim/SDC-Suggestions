@@ -7,7 +7,7 @@
     "build": "webpack",
     "start": "node server/index.js",
     "test": "",
-    "schema": "mysql -u root < database/schema.sql",
+    "schema": "mysql -u root -p < database/schema.sql",
     "seed": "node database/seed.js"
   },
   "repository": {
