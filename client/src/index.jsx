@@ -56,7 +56,7 @@ class App extends React.Component {
         </div>
         <Footer />
         <div className="hc-love-message">
-          <div className="message-container">Hipcamp is created with  ❤️ and hope for our future</div>
+          <div className="message-container">Timcamp is created with  ❤️ and hope for our future</div>
         </div>
       </div>
     );

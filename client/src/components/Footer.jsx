@@ -18,7 +18,7 @@ const Footer = (props) => (
                 <li><a>Journal</a></li>
                 <li><a>Gift Cards</a></li>
                 <li><a>Contact</a></li>
-                <li><a>Hipcamper FAQ</a></li>
+                <li><a>Timcamper FAQ</a></li>
               </ul>
             </div>
             <div className="hipcamp-hosting footer-list-wrapper">
@@ -42,7 +42,7 @@ const Footer = (props) => (
         </div>
         <div className="dynamic-footer-section">
           <div className="footer-home-body">
-            <h2 className="footer-title">Hipcamp is the most comprehensive resource for unique outdoor stays.</h2>
+            <h2 className="footer-title">Timcamp is the most comprehensive resource for unique outdoor stays.</h2>
             <p className="footer-home-body-copy">
               Discover and book tent camping, RV parks, cabins, treehouses, and glamping—everywhere from national parks to blueberry farms.
             </p>
@@ -51,7 +51,7 @@ const Footer = (props) => (
       </div>
       <div className="footer-container-footer footer-section">
         <div className="footer-legal-info">
-          <span>© 2020 Hipcamp, Inc. All rights reserved.</span>
+          <span>© 2020 Timcamp, Inc. All rights reserved.</span>
           <a className="terms">Terms of Service</a>
           <a className="privacy">Privacy Policy</a>
         </div>
