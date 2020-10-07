@@ -11358,7 +11358,7 @@ var Footer = function Footer(props) {
                   _react2.default.createElement(
                     "a",
                     null,
-                    "Hipcamper FAQ"
+                    "Timcamper FAQ"
                   )
                 )
               )
@@ -11447,7 +11447,7 @@ var Footer = function Footer(props) {
             _react2.default.createElement(
               "h2",
               { className: "footer-title" },
-              "Hipcamp is the most comprehensive resource for unique outdoor stays."
+              "Timcamp is the most comprehensive resource for unique outdoor stays."
             ),
             _react2.default.createElement(
               "p",
@@ -11466,7 +11466,7 @@ var Footer = function Footer(props) {
           _react2.default.createElement(
             "span",
             null,
-            "\xA9 2020 Hipcamp, Inc. All rights reserved."
+            "\xA9 2020 Timcamp, Inc. All rights reserved."
           ),
           _react2.default.createElement(
             "a",
@@ -12646,7 +12646,7 @@ var App = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'message-container' },
-            'Hipcamp is created with  \u2764\uFE0F and hope for our future'
+            'Timcamp is created with  \u2764\uFE0F and hope for our future'
           )
         )
       );
