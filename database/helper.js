@@ -57,6 +57,37 @@ const helper = {
 
   // },
 
+  ////////////////////////////
+
+
+
+  postOne: (body, callback) => {
+    // const {itemName, quantity} = req.body
+    let queryStr = `INSERT INTO camps(name, property, state, responses, rating, image_url, map_url) VALUES ("${body.name}", "${body.property}", "${body.state}", ${body.responses}, ${body.rating}, "${body.image_url}", "${body.map_url}");`
+    db.query(queryStr, (err, results) => {
+      if (err) {
+        callback(err);
+      } else {
+        callback(null, results)
+      }
+    })
+  },
+
+  updateOne: (id, body, callback) => {
+    let queryStr = `UPDATE camps SET name="${body.name}", property="${body.property}", state="${body.state}", responses=${parseInt(body.responses)}, rating=${parseInt(body.rating)}, image_url="${body.image_url}", map_url="${body.map_url}" WHERE id = ${id};`
+    db.query(queryStr, (err) => {
+      callback(err)
+    })
+  },
+
+
+  deleteOne: (id, callback) => {
+    db.query(`DELETE FROM camps WHERE id = ${id};`, (err) => {
+      callback(err);
+    })
+  }
+
+
 };
 
 module.exports = helper;

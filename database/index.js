@@ -1,11 +1,11 @@
 // MySQL Database
 const mysql = require('mysql');
-const PASSWORD = require('./password.js');
+// const PASSWORD = require('./password.js');
 
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: PASSWORD,
+  password: '',
   database: 'timcampDB',
 });
 
@@ -34,11 +34,7 @@ module.exports = connection;
 //   image_url: String
 // });
 
-// const listSchema = mongoose.Schema({
-//   id: Number,
-//   name: String,
-//   camps: [campSchema]
-// })
+
 
 // connection: the collections are "images, camps, lists"
 // const Image = mongoose.model('Image', imageSchema);
