@@ -40,3 +40,13 @@ npm install
 1. Rename ```database/passwordExample.js``` into ```database/password.js```, and insert your local MySQL database password.
 2. Set up a mysql database called 'timcamp', run $ ```npm run schema```
 3. Run the seed file from the command line while in the root directory, run $ ```npm run seed```
+
+
+## CRUD API using REST
+
+| CRUD   | REST   | PATH     | DATA TO PASS                                                                                                                                                                                                                                                                                                                                                                                                          |
+|--------|--------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CREATE | POST   | /one     | Name (STRING)<br />Property (STRING)<br />State (STRING)<br />Responses (Number)<br />Rating (Number)<br />Image (STRING)<br />Map (STRING)<br /> |
+| READ   | GET    | /one/:id |                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| UPDATE | PUT    | /one/:id | ```<name of data column you want to change>: <new data>```                                                                                                                                                                                                                                                                                                                                                                  |
+| DELETE | DELETE | /one/:id |                                                                                                                                                                                                                                                                                                                                                                                                                       |

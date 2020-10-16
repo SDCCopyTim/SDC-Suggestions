@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "start": "node server/index.js",
+    "start": "node server/mongoDB/index.js",
     "test": "",
     "schema": "mysql -u root -p < database/schema.sql",
     "seed": "node database/seed.js"
@@ -43,7 +43,9 @@
     "jquery": "^3.1.1",
     "moment": "^2.29.0",
     "moment-timezone": "^0.5.31",
-    "mongoose": "^4.10.8",
+    "mongo": "^0.1.0",
+    "mongoose": "^4.13.21",
+    "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "path": "^0.12.7",
     "pure-react-carousel": "^1.27.4",
