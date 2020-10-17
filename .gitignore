@@ -27,3 +27,7 @@ build/
 
 # Database Password
 database/password.js
+
+# CSV Files
+*.CSV
+*.csv
