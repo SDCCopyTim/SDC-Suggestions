@@ -1,6 +1,5 @@
-const db = require('./index.js');
-const faker = require('faker');
-
+const faker = require('faker'); // random name generator
+const fs = require('fs');
 
 const campAnimalName = ['Owl', 'Eagle', 'Wolf', 'Fox', 'Raven', 'Bear', 'Goat'];
 const campSuffixName = ['Ranch', 'Camp', 'Camping', 'Camping Site', 'Lake', 'Farm', 'Solitude', 'Getaway', 'Canyon', 'Woods'];
@@ -83,85 +82,51 @@ const randomCampRating = (responses) => {
   return Math.floor(Math.random() * 10) + rateLevel;
 };
 
-// Create 1 Random Camp
-// FOR MONGOOSE: IN THE SAME SCHEMA FORMAT AS CAMP SCHEMA in index.js
-// FOR MONGOOSE: Maintaing Camp's schema format from index.js will save extra work
-const createCamp = (numImages) => {
-  // note that camp.id will be auto_generated in data table/collection
-  const camp = {};
-  let campImageNum = Math.floor(Math.random() * numImages) + 1;
-  // reassign campImageNum random number until unique in campImageNums
-  while (campImageNums[campImageNum]) {
-    campImageNum = Math.floor(Math.random() * numImages) + 1;
-  }
-  campImageNums[campImageNum] = campImageNum;
-
-  camp.name = randomCampName();
-  camp.name = camp.name.replace(/'/g, "''"); // escape single quote with two single quotes for SQL syntax (O'Conner -> O''Conner)
-  camp.property = `${faker.address.streetName()} ${campPropertySuffixName[Math.floor(Math.random() * campPropertySuffixName.length)]}`;
-  camp.property = camp.property.replace(/'/g, "''");
-  camp.state = campState[Math.floor(Math.random() * campState.length)];
-  camp.responses = randomCampResponses(); // responses: 0 - 2000
-  camp.rating = randomCampRating(camp.responses);
-  camp.image = `https://timcamp.s3-us-west-1.amazonaws.com/camp${campImageNum}.jpg`; // images camp 1 - numImages
-  camp.map = campMap[camp.state];
-
-  return camp;
-};
-
-const createCamps = (numCamps = 100, numImages = 300) => {
-  const campsArr = [];
-  for (let i = 0; i < numCamps; i += 1) {
-    campsArr.push(createCamp(numImages));
-  }
-  return campsArr;
-};
 
 
-const insertData = () => {
-  const campsData = createCamps(100, 346);
+const writeRecords = fs.createWriteStream('camps.csv');
+writeRecords.write('id,name,property,state,responses,rating,image,map\n', 'utf8');
 
+function writeTenMillionRecords(writer, encoding, callback) {
+  let i = 10000000;
+  let id = 0;
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+      id += 1;
+      let campImageNum = Math.floor(Math.random() * 300) + 1;
+      // reassign campImageNum random number until unique in campImageNums
+      while (campImageNums[campImageNum]) {
+        campImageNum = Math.floor(Math.random() * 300) + 1;
+      }
+      campImageNums[campImageNum] = campImageNum;
 
-  db.Suggestions.insertMany(campsData, (err, results) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('seeded successfully!!!!');
+      const name = randomCampName().replace(/'/g, "''"); // escape single quote with two single quotes for SQL syntax (O'Conner -> O''Conner)
+      let location = `${faker.address.streetName()} ${campPropertySuffixName[Math.floor(Math.random() * campPropertySuffixName.length)]}`;
+      const property = location.replace(/'/g, "''");
+      const state = campState[Math.floor(Math.random() * campState.length)];
+      const responses = randomCampResponses(); // responses: 0 - 2000
+      const rating = randomCampRating(responses);
+      const image = `https://timcamp.s3-us-west-1.amazonaws.com/camp${campImageNum}.jpg`; // images camp 1 - numImages
+      const map = campMap[state];
+
+      const data = `${id},${name},${property},${state},${responses},${rating},${image},${map}\n`;
+
+      if (i === 0) {
+        writer.write(data, encoding, callback);
+      } else {
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once('drain', write);
     }
-  });
-};
+  }
+  write();
+}
 
-insertData();
+writeTenMillionRecords(writeRecords, 'utf-8', () => {
+  writeRecords.end();
+});
 
-
-// const createCamp = () => {
-//   const camp = {};
-
-//   camp.name = faker.lorem.word();
-//   camp.property = faker.address.city();
-//   camp.state = faker.address.state();
-//   camp.responses = faker.random.number();
-//   camp.rating = faker.random.number();
-//   camp.image = faker.random.image();
-//   camp.map = faker.random.image()
-
-//   return camp;
-// };
-
-// const createCamps = () => {
-//   const campsArr = [];
-
-//   for (let i = 0; i < 100; i++) {
-//     campsArr.push(createCamp());
-//   }
-
-//   db.Suggestions.insertMany(campsArr, (err, results) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       console.log('seeded successfully!!!!');
-//     }
-//   });
-// };
-
-// createCamps();
