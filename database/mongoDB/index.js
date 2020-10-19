@@ -17,10 +17,10 @@ const suggestionsSchema = new mongoose.Schema({
   map: String
 });
 
-const Suggestions = mongoose.model('Suggestions', suggestionsSchema);
+const Camps = mongoose.model('Camps', suggestionsSchema);
 
 module.exports = {
-  Suggestions,
+  Camps,
   db
 };
 

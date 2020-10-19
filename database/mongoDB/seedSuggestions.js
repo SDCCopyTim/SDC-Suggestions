@@ -122,7 +122,7 @@ const insertData = () => {
   const campsData = createCamps(100, 346);
 
 
-  db.Suggestions.insertMany(campsData, (err, results) => {
+  db.Camps.insertMany(campsData, (err, results) => {
     if (err) {
       console.log(err);
     } else {
