@@ -31,3 +31,6 @@ database/password.js
 # CSV Files
 *.CSV
 *.csv
+
+# New Relic
+newrelic.js

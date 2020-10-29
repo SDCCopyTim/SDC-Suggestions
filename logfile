@@ -1,0 +1,17 @@
+2020-10-22 10:01:59.628 PDT [51473] LOG:  starting PostgreSQL 13.0 on x86_64-apple-darwin19.6.0, compiled by Apple clang version 12.0.0 (clang-1200.0.32.2), 64-bit
+2020-10-22 10:01:59.631 PDT [51473] LOG:  listening on IPv6 address "::1", port 5432
+2020-10-22 10:01:59.631 PDT [51473] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2020-10-22 10:01:59.631 PDT [51473] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2020-10-22 10:01:59.635 PDT [51474] LOG:  database system was shut down at 2020-10-22 10:01:52 PDT
+2020-10-22 10:01:59.638 PDT [51473] LOG:  database system is ready to accept connections
+2020-10-22 10:02:06.235 PDT [51498] FATAL:  database "alphinalong" does not exist
+2020-10-22 10:02:18.179 PDT [51597] FATAL:  database "timcampdb" does not exist
+2020-10-22 10:13:39.780 PDT [58837] FATAL:  database "alphinalong" does not exist
+2020-10-22 10:21:34.613 PDT [63324] FATAL:  database "timcampdb" does not exist
+2020-10-22 10:22:41.303 PDT [63907] FATAL:  database "alphinalong" does not exist
+2020-10-22 10:22:52.388 PDT [64018] FATAL:  database "alphinalong" does not exist
+2020-10-22 11:24:55.008 PDT [82595] FATAL:  database "alphinalong" does not exist
+2020-10-23 15:29:47.860 PDT [51473] LOG:  received smart shutdown request
+2020-10-23 15:29:47.864 PDT [51473] LOG:  background worker "logical replication launcher" (PID 51480) exited with exit code 1
+2020-10-23 15:29:47.865 PDT [51475] LOG:  shutting down
+2020-10-23 15:29:47.877 PDT [51473] LOG:  database system is shut down
