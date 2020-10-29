@@ -47,6 +47,7 @@
     "mongoose": "^4.13.21",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "newrelic": "^6.13.2",
     "path": "^0.12.7",
     "pg": "^8.4.1",
     "pure-react-carousel": "^1.27.4",

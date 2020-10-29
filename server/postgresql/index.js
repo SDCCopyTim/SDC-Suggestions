@@ -7,14 +7,16 @@ const morgan = require('morgan');
 const app = express();
 const port = 3005;
 
+require('newrelic');
+
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../../client/dist')));
 
-app.get('/api/camp', (req, res) => {
-  helper.getOne((err, results) => {
+app.get('/api/camp/:id', (req, res) => {
+  helper.one(req.params.id, (err, results) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -22,6 +24,7 @@ app.get('/api/camp', (req, res) => {
     }
   });
 });
+
 
 
 app.listen(port, () => {

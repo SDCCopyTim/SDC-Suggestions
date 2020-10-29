@@ -4,22 +4,21 @@ const db = require('./index.js');
 
 const helper = {
 
-  getOne: (callback) => {
+  one: (id, callback) => {
     const randomId = faker.random.number({
       min: 1,
-      max: 100,
+      max: 10000000,
     });
-    const queryString = `SELECT * FROM camps WHERE id=${randomId};`;
+    const queryString = `SELECT * FROM camp WHERE id=${id};`;
 
     db.query(queryString, (err, results) => {
       if (err) {
         callback(err);
       } else {
-        callback(null, results);
+        callback(null, results.rows[0]);
       }
     });
   }
 };
-
 
 module.exports = helper;
